@@ -1,0 +1,34 @@
+.TH MEM 1
+.SH NAME
+mem \- a simple flashcard program
+.SH SYNOPSIS
+.B mem
+.IR files ...
+.SH DESCRIPTION
+.B mem
+is a simple console-based spaced repetition flashcard program.  The
+program reads flashcards from
+.IR decks ,
+which are just plaintext files.  After the flashcards have been reviewed,
+the file will be updated with information used internally by the program.
+.PP
+Once the program has started, the user will be shown flashcards.  Press space
+to reveal each segment of the flashcard after the first.  After the entire
+flashcard has been shown, the user should press a number key between 0 and 5
+to reflect how easily the flashcard was recognized, according to the following
+chart:
+.PP
+5 - Perfect, quick recollection
+.PP
+4 - Recalled after some thought
+.PP
+3 - Recalled with serious difficulty
+.PP
+2 - Failed to recall, but very easily remembered
+.PP
+1 - Failed to recall, but recognized
+.PP
+0 - Not recognized
+.SH AUTHOR
+Charles Hood
+.RB < charles@chood.net >
