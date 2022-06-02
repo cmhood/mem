@@ -384,6 +384,7 @@ review_flashcard(struct Flashcard *flashcard, bool is_repeat)
 		case '\\':
 			i++;
 			c = flashcard->body[i];
+			// FALLTHROUGH
 		default:
 			putchar(c);
 		}

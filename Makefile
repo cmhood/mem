@@ -5,7 +5,7 @@ BINDIR=${PREFIX}/bin
 MANDIR=${PREFIX}/share/man
 
 mem: mem.c
-	${CC} $< -o $@ ${CPPFLAGS} ${CFLAGS} ${LDFLAGS}
+	${CC} $< -o $@ -D_POSIX_C_SOURCE ${CPPFLAGS} ${CFLAGS} ${LDFLAGS}
 
 install: mem
 	mkdir -p ${BINDIR} ${MANDIR}/man1
