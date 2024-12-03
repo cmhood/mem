@@ -28,7 +28,7 @@ interspersed.
 
 ### Creating flashcards
 
-Create a deck of flashcards as a plaintext file. Separate individual flashcardsi
+Create a deck of flashcards as a plaintext file. Separate individual flashcards
 with a line containing only a `%` character. Within each flashcard, use the `|`
 character to break up a flashcard into different parts, and `mem` will pause
 after each part. (Press the space key to advance.) The `\` character is handled
