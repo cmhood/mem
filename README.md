@@ -53,7 +53,7 @@ was recognized by prompting you to provide keyboard input:
   * `1` - Failed to recall but recognized
   * `0` - Not recognized
 
-The tilde key is aliased to `0` due to its location on a standard US keyboard
+The backtick/tilde key is aliased to `0` due to its location on the US keyboard
 layout.
 
 ## Installation
