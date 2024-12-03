@@ -14,6 +14,6 @@ uninstall:
 	rm -f ${BINDIR}/mem
 
 clean:
-	rm -f mem ${OBJ}
+	rm -f mem
 
 .PHONY: clean install uninstall
