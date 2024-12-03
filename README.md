@@ -46,8 +46,8 @@ to think
 
 ### Reviewing flashcards
 
-After presenting each flashcard, the program will prompt you for keyboard input
-to rate your recollection:
+After each flashcard is shown, the program will prompt you for keyboard input to
+rate your recollection of it:
 
   * `5` - Perfect, quick recollection
   * `4` - Recalled after some thought
@@ -56,8 +56,8 @@ to rate your recollection:
   * `1` - Failed to recall but recognized
   * `0` - Not recognized
 
-The backtick/tilde key is aliased to `0` due to its location on the US keyboard
-layout.
+The backtick/tilde key is also aliased to `0` due to its location on the US
+keyboard layout.
 
 ## Installation
 
