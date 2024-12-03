@@ -10,10 +10,10 @@ repetition](https://en.wikipedia.org/wiki/Spaced_repetition) system, where cards
 you know well are reviewed less frequently, and cards you are struggling with
 are reviewed more frequently.
 
-Each day, some cards will be selected for review, while others are skipped.
-Once all selected cards are correctly recalled (i.e. scored at least a 3) on a
-given day, the program will update your deck(s) based on your responses, and no
-further review will be possible for that day.
+Each day, some cards will be selected for review, while others will be skipped.
+Once all selected cards are successfully recalled, the program will update your
+deck(s) based on your responses, and no further review will be possible for that
+day.
 
 ## Usage
 
@@ -22,6 +22,9 @@ further review will be possible for that day.
 ```
 mem deck[...]
 ```
+
+You can review multiple decks at a time. The flashcards from each deck will be
+interspersed.
 
 ### Creating flashcards
 
@@ -43,8 +46,8 @@ to think
 
 ### Reviewing flashcards
 
-After viewing each flashcard, the program will ask you how well the flashcard
-was recognized by prompting you to provide keyboard input:
+After presenting each flashcard, the program will prompt you for keyboard input
+to rate your recollection:
 
   * `5` - Perfect, quick recollection
   * `4` - Recalled after some thought
