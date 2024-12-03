@@ -171,7 +171,8 @@ enable_raw_mode(void)
 			die("tcgetattr");
 
 		raw_termios = original_termios;
-		raw_termios.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
+		raw_termios.c_iflag &=
+		    ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
 		raw_termios.c_oflag &= ~(OPOST);
 		raw_termios.c_cflag |= CS8;
 		raw_termios.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
@@ -215,7 +216,8 @@ load_deck(const char *path)
 {
 	if (deck_book.deck_count == deck_book.deck_limit) {
 		deck_book.deck_limit *= 2;
-		deck_book.decks = xrealloc(deck_book.decks, deck_book.deck_limit * sizeof(struct deck));
+		deck_book.decks = xrealloc(deck_book.decks,
+		    deck_book.deck_limit * sizeof(struct deck));
 	}
 	struct deck *deck = &deck_book.decks[deck_book.deck_count];
 	deck_book.deck_count++;
@@ -258,20 +260,24 @@ parse_deck(struct deck *deck)
 
 	deck->flashcard_count = 0;
 	deck->flashcard_limit = 1;
-	deck->flashcards = xmalloc(deck->flashcard_limit * sizeof(struct flashcard));
+	deck->flashcards =
+	    xmalloc(deck->flashcard_limit * sizeof(struct flashcard));
 
 	while (ptr != buf_end) {
 		if (deck->flashcard_count == deck->flashcard_limit) {
 			deck->flashcard_limit *= 2;
-			deck->flashcards = xrealloc(deck->flashcards, deck->flashcard_limit * sizeof(struct flashcard));
+			deck->flashcards = xrealloc(deck->flashcards,
+			    deck->flashcard_limit * sizeof(struct flashcard));
 		}
-		struct flashcard *flashcard = &deck->flashcards[deck->flashcard_count];
+		struct flashcard *flashcard =
+		    &deck->flashcards[deck->flashcard_count];
 		deck->flashcard_count++;
 
 		parse_header(&ptr, buf_end, flashcard);
 
 		flashcard->body = ptr;
-		while (ptr != buf_end && !(ptr > deck->buf && ptr[-1] == '\n' && *ptr == '%'))
+		while (ptr != buf_end && !(ptr > deck->buf && ptr[-1] == '\n' &&
+		    *ptr == '%'))
 			ptr++;
 		flashcard->body_size = ptr - flashcard->body;
 	}
@@ -338,22 +344,26 @@ static void
 get_due_flashcards(void)
 {
 	size_t due_flashcard_limit = 1;
-	due_flashcards = xmalloc(due_flashcard_limit * sizeof(struct flashcard *));
+	due_flashcards =
+	    xmalloc(due_flashcard_limit * sizeof(struct flashcard *));
 	for (size_t i = 0; i < deck_book.deck_count; i++) {
 		struct deck *deck = &deck_book.decks[i];
 		size_t limit = 8;
 		for (size_t j = 0; j < deck->flashcard_count; j++) {
 			struct flashcard *flashcard = &deck->flashcards[j];
 			struct tm tm;
-			time_t review_day = get_day(flashcard->review_timestamp, &tm);
+			time_t review_day =
+			    get_day(flashcard->review_timestamp, &tm);
 			if (review_day > current_day)
 				continue;
 
 			if (flashcard->repetition_interval == 0) {
 				if (limit == 0) {
-					struct tm review_timestamp_tm = current_day_tm;
+					struct tm review_timestamp_tm =
+					    current_day_tm;
 					review_timestamp_tm.tm_mday++;
-					flashcard->review_timestamp = mktime(&review_timestamp_tm);
+					flashcard->review_timestamp =
+					    mktime(&review_timestamp_tm);
 					continue;
 				}
 				limit--;
@@ -361,7 +371,9 @@ get_due_flashcards(void)
 
 			if (due_flashcard_count == due_flashcard_limit) {
 				due_flashcard_limit *= 2;
-				due_flashcards = xrealloc(due_flashcards, due_flashcard_limit * sizeof(struct flashcard *));
+				due_flashcards = xrealloc(due_flashcards,
+				    due_flashcard_limit *
+				    sizeof(struct flashcard *));
 			}
 			due_flashcards[due_flashcard_count] = flashcard;
 			due_flashcard_count++;
@@ -425,7 +437,8 @@ review_flashcard(struct flashcard *flashcard, bool is_repeat)
 
 	if (!is_repeat) {
 		float q = 5.0f - score;
-		flashcard->e_factor += (0.1f - q * (0.08f + 0.02f * q)) * E_FACTOR_FIXED_POINT;
+		flashcard->e_factor +=
+		    (0.1f - q * (0.08f + 0.02f * q)) * E_FACTOR_FIXED_POINT;
 		if (flashcard->e_factor < E_FACTOR_MIN)
 			flashcard->e_factor = E_FACTOR_MIN;
 	}
@@ -436,7 +449,10 @@ review_flashcard(struct flashcard *flashcard, bool is_repeat)
 		if (flashcard->repetition_interval == 1)
 			flashcard->repetition_interval = 6;
 		else
-			flashcard->repetition_interval = (flashcard->repetition_interval * flashcard->e_factor + (E_FACTOR_FIXED_POINT - 1)) / E_FACTOR_FIXED_POINT;
+			flashcard->repetition_interval =
+			    (flashcard->repetition_interval *
+			    flashcard->e_factor + (E_FACTOR_FIXED_POINT - 1)) /
+			    E_FACTOR_FIXED_POINT;
 	} else {
 		return;
 	}
@@ -467,9 +483,12 @@ write_deck(struct deck *deck)
 {
 	for (size_t i = 0; i < deck->flashcard_count; i++) {
 		struct flashcard *flashcard = &deck->flashcards[i];
-		if (fprintf(deck->fp, "%%%u%%%u%%%lu\n", flashcard->e_factor, flashcard->repetition_interval, flashcard->review_timestamp) < 0)
+		if (fprintf(deck->fp, "%%%u%%%u%%%lu\n", flashcard->e_factor,
+		    flashcard->repetition_interval, flashcard->review_timestamp)
+		    < 0)
 			perror("fprintf");
-		if (fwrite(flashcard->body, 1, flashcard->body_size, deck->fp) != flashcard->body_size)
+		if (fwrite(flashcard->body, 1, flashcard->body_size, deck->fp)
+		    != flashcard->body_size)
 			perror("fwrite");
 	}
 	free(deck->flashcards);
