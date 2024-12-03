@@ -28,8 +28,8 @@ mem deck[...]
 Create a deck of flashcards as a plaintext file. Separate individual flashcardsi
 with a line containing only a `%` character. Within each flashcard, use the `|`
 character to break up a flashcard into different parts, and `mem` will pause
-after each part. (Press _space_ to progress each flashcard.) The `\` character
-is handled as an escape character.
+after each part. (Press the space key to advance.) The `\` character is handled
+as an escape character.
 
 Example deck:
 
@@ -52,6 +52,9 @@ was recognized by prompting you to provide keyboard input:
   * `2` - Failed to recall but very easily recognized
   * `1` - Failed to recall but recognized
   * `0` - Not recognized
+
+The tilde key is aliased to `0` due to its location on a standard US keyboard
+layout.
 
 ## Installation
 
