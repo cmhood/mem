@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Charles Hood <chood@chood.net>
+ * Copyright (c) 2020-2024 Charles Hood <chood@chood.net>
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
