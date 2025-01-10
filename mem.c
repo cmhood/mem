@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2024 Charles Hood <chood@chood.net>
+ * Copyright (c) 2020-2025 Charles Hood <chood@chood.net>
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <https://www.gnu.org/licenses/>.
-*/
+ */
 
 #include <errno.h>
 #include <stdbool.h>
